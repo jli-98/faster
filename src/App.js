@@ -4,7 +4,8 @@ import React, {useState} from 'react';
 import Home from './Components/Home';
 
 function App() {
-  const [startGame, setStartGame] = useState();
+  const [startGame, setStartGame] = useState(false);
+  const [displayScore, setDisplayScore] = useState([]);
 
   //gets random number between 3-6
   const getRandomTime = () =>{
@@ -15,24 +16,21 @@ function App() {
 
   const randTime = getRandomTime();
 
-  const handleStart = () =>{
-    // setStartGame(true);
-  }
-
-  //get data from game component to save to app component and set random time
-  const resetGame = () =>{
-    setStartGame(false);
-    console.log(startGame);
-  }
-
+  //default value of startGame is false to redirect to Home Component
+  //Home Component changes value to true to start game
   return (
-    <div className="App" onClick={handleStart}>
+    <div className="App">
       <h1>Faster</h1>
       { startGame ? 
       <Game 
         startGame={startGame}
         setStartGame={setStartGame}
-        randTime={randTime}/> : <Home setStartGame={setStartGame}/>}
+        randTime={randTime}
+        setDisplayScore={setDisplayScore}/>
+        : <Home setStartGame={setStartGame}/>}
+      <h3>Scores: 
+        {displayScore}
+      </h3>
     </div>
   );
 } 
